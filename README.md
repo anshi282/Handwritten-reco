@@ -92,6 +92,6 @@ python backend/predict.py backend/images/my_char.png --char
 
 ## 👤 Credits
 
-Built as a **CodeAlpha Internship Project**. 
+Built by Anshi Mishra. 
 Core Stack: Python (TensorFlow, FastAPI) + React (Vite, Tailwind).
 Targeting: Technical Portfolio for AI/ML roles.
