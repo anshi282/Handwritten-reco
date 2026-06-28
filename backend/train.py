@@ -27,7 +27,7 @@ PLOT_PATH = os.path.join(ROOT, 'backend', 'training_plot.png')
 # ─────────────────────────────────────────────────────────
 # 1. Load MNIST Dataset
 # ─────────────────────────────────────────────────────────
-print("📥 Loading MNIST dataset...")
+print("[INFO] Loading MNIST dataset...")
 (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
 
 print(f"   Training samples : {len(x_train)}")
@@ -43,16 +43,16 @@ x_test  = x_test.astype("float32")  / 255.0
 x_train = x_train.reshape(-1, 28, 28, 1)
 x_test  = x_test.reshape(-1, 28, 28, 1)
 
-print("✅ Preprocessing complete: normalized + reshaped to (28, 28, 1)")
+print("[OK] Preprocessing complete: normalized + reshaped to (28, 28, 1)")
 
 # ─────────────────────────────────────────────────────────
 # 3. Build & Train
 # ─────────────────────────────────────────────────────────
-print("\n🔧 Building CNN model...")
+print("\n[INFO] Building CNN model...")
 model = build_digit_model()
 model.summary()
 
-print("\n🚀 Training model (5 epochs)...")
+print("\n[INFO] Training model (5 epochs)...")
 history = model.fit(
     x_train, y_train,
     epochs=5,
@@ -64,7 +64,7 @@ history = model.fit(
 # ─────────────────────────────────────────────────────────
 # 4. Evaluate
 # ─────────────────────────────────────────────────────────
-print("\n📊 Evaluating on test set...")
+print("\n[INFO] Evaluating on test set...")
 test_loss, test_acc = model.evaluate(x_test, y_test, verbose=0)
 print(f"\n{'='*40}")
 print(f"  Test Accuracy : {test_acc * 100:.2f}%")
@@ -91,9 +91,10 @@ ax2.legend(); ax2.grid(True, alpha=0.3)
 plt.suptitle('CNN Training on MNIST', fontsize=13, fontweight='bold')
 plt.tight_layout()
 plt.savefig(PLOT_PATH, dpi=150, bbox_inches='tight')
-print(f"\n📈 Training plot saved → {PLOT_PATH}")
+print(f"\n[INFO] Training plot saved -> {PLOT_PATH}")
 
 os.makedirs(SAVE_DIR, exist_ok=True)
-model.save(os.path.join(SAVE_DIR, 'digit_model.keras'))
-print(f"💾 Model saved → {os.path.join(SAVE_DIR, 'digit_model.keras')}")
-print("\n✅ Training complete! Run: streamlit run frontend/app.py")
+save_path = os.path.join(SAVE_DIR, 'digit_model.keras')
+model.save(save_path)
+print(f"[OK] Model saved -> {save_path}")
+print("\n[DONE] Training complete! Run: python backend/api.py")
